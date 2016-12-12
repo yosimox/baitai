@@ -1,0 +1,54 @@
+id:
+  type: text
+  name: id
+lp:
+  type: text
+  name: ランディングページURL
+category:
+  type: list
+  name: 大分類
+  data:
+    - 広告
+    - LINE
+    - その他
+brand:
+  type: list
+  name: ブランド
+  data:
+    - エリクシール
+    - マキアージュ
+    - HAKU
+    - プリオール
+    - ｄプログラム
+    - ブランドSHISEIDO
+    - 共通/その他ブランド
+campaign:
+  type: text
+  name: キャンペーン
+menu:
+  type: list
+  name: 広告メニュー
+  data:
+    - SEM
+    - DSP
+    - アフィリエイト
+    - 純広告
+    - その他
+bname:
+  type: text
+  name: 媒体名称
+seg1:
+  type: text
+  name: セグメント1
+seg2:
+  type: text
+  name: セグメント2
+seg3:
+  type: text
+  name: セグメント3
+seg4:
+  type: text
+  name: セグメント4
+seg5:
+  type: text
+  name: セグメント5

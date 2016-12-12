@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title></title>
+
+<meta charset="utf-8">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <script src='https://cdnjs.cloudflare.com/ajax/libs/js-yaml/3.4.2/js-yaml.min.js'></script>
+
+<script
+  src="https://code.jquery.com/jquery-2.2.4.min.js"
+  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  crossorigin="anonymous"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.3.0/list.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" integrity="sha256-obZACiHd7gkOk9iIL/pimWMTJ4W/pBsKu+oZnSeBIek=" crossorigin="anonymous"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<style type="text/css">
+<!--
+ body {
+   margin:15px;
+   font-family: Lato, "游ゴシック Medium", "游ゴシック体", "Yu Gothic Medium", YuGothic, "ヒラギノ角ゴ ProN", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, "ＭＳ Ｐゴシック", "MS PGothic", sans-serif;
+   }
+h2 {
+  margin-bottom: 30px;
+}
+-->
+</style>
+</head>
+<body>
+<h2>媒体マスタ管理システムモック</h2>
+<div class="container-fluid">
+  <div id="contacts" class="col-sm-9">
+
+    <table class="table table-responsive">
+    	<tr>
+    		<th style="display:none;">id</th>
+        <th>remove</th>
+        <th>ランディングページURL</th>
+        <th>大分類</th>
+        <th>ブランド</th>
+    		<th>キャンペーン</th>
+    		<th>広告メニュー</th>
+    		<th>媒体名称</th>
+    		<th class="segs">セグメント1</th>
+    		<th class="segs">セグメント2</th>
+    		<th class="segs">セグメント3</th>
+    		<th class="segs">セグメント4</th>
+    		<th class="segs">セグメント5</th>
+    	</tr>
+      <tbody class="list">
+    	<tr>
+        <td class="id" style="display:none;">0</td>
+        <td class="remove"><button class="remove-item-btn btn btn-danger btn-xs">Remove</button></td>
+        <td class="lp">http://www.shiseido.co.jp/</td>
+    		<td class="category">広告</td>
+    		<td class="brand">エリクシール</td>
+    		<td class="campaign">campaign</td>
+    		<td class="menu">DSP</td>
+    		<td class="bname">ユニークになるような媒体名称を入れてください</td>
+    		<td class="seg1 segs"></td>
+    		<td class="seg2 segs"></td>
+    		<td class="seg3 segs"></td>
+    		<td class="seg4 segs"></td>
+    		<td class="seg5 segs"></td>
+    	</tr>
+      </tbody>
+    </table>
+    <div class="col-sm-4">
+    </div>
+    <div class="col-sm-4">
+      <button id="makeCsv" class="btn btn-primary btn-lg">CSV生成</button>
+    </div>
+    <div class="col-sm-4">
+      <a id="dispSeg" href="#" class="dispOff">>>セグメント情報を表示</a>
+    </div>
+
+    </div>
+
+
+    <div id="editTbl" class="col-sm-3">
+      <h4>入力欄</h4>
+      <form class="form-horizontal">
+        <div class="form-group" style="display:none;">
+          <label for="nput-id" class="col-sm-4 control-label">id</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="input-id" placeholder="id">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="input-lp" class="col-sm-4 control-label">ランディングページURL</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="input-lp" placeholder="http://...">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="input-category" class="col-sm-4 control-label">大分類</label>
+          <div class="col-sm-8">
+            <select class="form-control" id="input-category">
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="input-brand" class="col-sm-4 control-label">ブランド</label>
+          <div class="col-sm-8">
+              <select class="form-control" id="input-brand">
+              </select>
+            </div>
+        </div>
+        <div class="form-group">
+          <label for="input-campaign" class="col-sm-4 control-label">キャンペーン</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="input-campaign" placeholder="キャンペーン">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="input-menu" class="col-sm-4 control-label">メニュー</label>
+          <div class="col-sm-8">
+              <select class="form-control" id="input-menu">
+              </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="input-bname" class="col-sm-4 control-label">媒体名称</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="input-bname" placeholder="媒体名称">
+          </div>
+        </div>
+        <div class="form-group segs">
+          <label for="input-seg1" class="col-sm-4 control-label">セグメント1</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="input-seg1" placeholder="セグメント1">
+          </div>
+        </div>
+        <div class="form-group segs">
+          <label for="input-seg2" class="col-sm-4 control-label">セグメント2</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="input-seg2" placeholder="セグメント2">
+          </div>
+        </div>
+        <div class="form-group segs">
+          <label for="input-seg3" class="col-sm-4 control-label">セグメント3</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="input-seg3" placeholder="セグメント3">
+          </div>
+        </div>
+        <div class="form-group segs">
+          <label for="input-seg4" class="col-sm-4 control-label">セグメント4</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="input-seg4" placeholder="セグメント4">
+          </div>
+        </div>
+        <div class="form-group segs">
+          <label for="input-seg5" class="col-sm-4 control-label">セグメント5</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="input-seg5" placeholder="セグメント5">
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <button type="submit" class="btn btn-default input-button" id="input-add">追加</button>
+        </div>
+        <div class="col-sm-4">
+          <button type="submit" class="btn btn-default input-button" id="input-renew"  style="display:none">更新</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+
+
+  <script src="js/table.js"></script>
+
+
+
+
+
+
+
+</body>
+</html>
