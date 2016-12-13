@@ -120,6 +120,48 @@ MediaMaster.prototype = {
       }
       return false;
     });
+  },
+  bindMakeCsv : function(){
+    var that = this;
+    $("button#makeCsv").click(function(){
+      var csvStr = that.makeCsvData();
+      var inputF = $("<input>");
+      inputF.val(csvStr)
+        .attr("name", "csvdata")
+        .css({"display":"none"})
+        .prependTo($("form#csvForm"));
+      $("form#csvForm").submit();
+    });
+    return false;
+  },
+  makeCsvData : function(){
+    var that = this;
+    var mediaHeader = ["媒体コード","デバイス区分","媒体大分類コード","媒体中分類コード","媒体名称","出稿開始年月日","出稿終了年月日","出稿内容","ランディングページURL","汎用項目1","汎用項目2","汎用項目3","汎用項目4","汎用項目5","汎用項目6","汎用項目7","汎用項目8","汎用項目9","汎用項目10","汎用項目11","汎用項目12","汎用項目13","汎用項目14","汎用項目15","汎用項目16","汎用項目17","汎用項目18","汎用項目19","汎用項目20","広告入稿用URL","媒体マスタ登録シート番号"];
+    var lines = []
+    lines.push(mediaHeader);
+    var items = that.mediaList.items;
+    _.each(items, function(e){
+      //if(e._values["id"] !== "0"){
+        var line = [null,"1","1","1",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
+        line[8] = e._values["lp"];
+        line[9] = e._values["category"];
+        line[10] = e._values["brand"];
+        line[11] = e._values["campaign"];
+        line[12] = e._values["menu"];
+        line[13] = e._values["seg1"];
+        line[14] = e._values["seg2"];
+        line[15] = e._values["seg3"];
+        line[16] = e._values["seg4"];
+        line[17] = e._values["seg5"];
+        lines.push(line);
+      //}
+    });
+    var resStr = "";
+    _.each(lines, function(l){
+      resStr += l.join(",") + "<>";
+    });
+    //console.log(resStr);
+    return resStr;
   }
 }
 
@@ -128,10 +170,12 @@ $.ajax({
   url: "txt/data.yml",
   success: function(d){
     var fileObj = jsyaml.load(d);
-    var m = new MediaMaster(fileObj);
+    window.m = new MediaMaster(fileObj);
+    //var m = new MediaMaster(fileObj);
     m.makeSelectBox();
     m.showDisplay();
     m.dispSegments();
+    m.bindMakeCsv();
     $("#makeCsv").click(function(){
       alert("CSVが生成されてメールが飛びます（きっと）")
     })

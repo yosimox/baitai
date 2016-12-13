@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title></title>
+<title>媒体マスタマスタ</title>
 
 <meta charset="utf-8">
  <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -66,7 +66,7 @@ td {word-break: break-all;}
     		<td class="category">広告</td>
     		<td class="brand">エリクシール</td>
     		<td class="campaign">campaign</td>
-    		<td class="menu">DSP</td>
+    		<td class="menu">アフィリエイト</td>
     		<td class="bname">ユニークになるような媒体名称を入れてください</td>
     		<td class="seg1 segs"></td>
     		<td class="seg2 segs"></td>
@@ -79,7 +79,10 @@ td {word-break: break-all;}
     <div class="col-sm-4">
     </div>
     <div class="col-sm-4">
-      <button id="makeCsv" class="btn btn-primary btn-lg">CSV生成</button>
+      <form id="csvForm" name="csv" method="get" action="csv.html">
+        <!-- 本当はPOSTで送信-->
+        <button id="makeCsv" class="btn btn-primary btn-lg">CSV生成</button>
+      </form>
     </div>
     <div class="col-sm-4">
       <a id="dispSeg" href="#" class="dispOff">>>セグメント情報を表示</a>
