@@ -128,7 +128,7 @@ $.ajax({
   url: "txt/data.yml",
   success: function(d){
     var fileObj = jsyaml.load(d);
-    m = new MediaMaster(fileObj);
+    var m = new MediaMaster(fileObj);
     m.makeSelectBox();
     m.showDisplay();
     m.dispSegments();
