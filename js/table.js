@@ -1,49 +1,52 @@
-$.ajax({type: "GET", url: "csv/data.yml", success: function(d){window.f = jsyaml.load(d)}, async:false})
-var dataDef = _.keys(f);
-var _idx = 1;
-var options = {
-  valueNames: dataDef
-};
 
-var mediaList = new List('contacts', options);
+var MediaMaster = function(f){
+    this.f = f;
+    this.dataDef = _.keys(f);
+    this.idx = 1;
+    this.options = {
+      valueNames: this.dataDef
+    }
+    this.mediaList = new List('contacts', this.options);
+}
 
-
-
-var commonFunc = {
+MediaMaster.prototype = {
   displayData : function(){
+    var that = this;
     $("#contacts tr").on("click", function(){
-      commonFunc.editData(this);
+      that.editData(this);
       $("button#input-renew").show();
       return false;
     });
   },
   editData : function(el){
+    var that = this;
     $("#contacts tr").css({"background-color": "#FFF"});
     $(el).css({"background-color": "#FFFAF0"});
     var itemId = $(el).closest('tr').find('.id').text();
-    var d = mediaList.get("id", itemId)[0].values();
+    var d = that.mediaList.get("id", itemId)[0].values();
     _.each(_.keys(d), function(e,idx){
       $("#input-" + e).val(d[e]);
     })
   },
   renewData: function(){
+    var that = this;
     $("button.input-button").on("click", function(){
       var ids = $(this).attr("id");
       var obj_d = {}
-      _.each(dataDef, function(e){
+      _.each(that.dataDef, function(e){
         var ids = "input-" + e;
         obj_d[e] = $("#" + ids).val()
-      })
-      if(commonFunc.checkUrl(obj_d["lp"])){
+      });
+      if(that.checkUrl(obj_d["lp"])){
         if(ids === "input-renew"){
-          mediaList.remove("id", obj_d["id"]);
+          that.mediaList.remove("id", obj_d["id"]);
         }else{
-          _idx++;
-          obj_d["id"] = _idx;
-        }
-        mediaList.add(obj_d);
-        mediaList.sort('id', { order: "asc" });
-        commonFunc.renewDisplay();
+          that.idx++;
+          obj_d["id"] = that.idx;
+        };
+        that.mediaList.add(obj_d);
+        that.mediaList.sort('id', { order: "asc" });
+        that.renewDisplay();
         _.each($("#editTbl").find("input"), function(e,idx){$(e).val("")});
         $("button#input-renew").hide();
         return false;
@@ -63,14 +66,15 @@ var commonFunc = {
     }
   },
   removeData: function(){
+    var that = this;
     $(".remove>button").on("click", function(){
       var itemId = $(this).closest('tr').find('.id').text();
       var result = confirm( "消去してよろしいですか？" + itemId );
       if(result){
-        mediaList.remove("id", itemId);
-        commonFunc.renewDisplay();
+        that.mediaList.remove("id", itemId);
+        that.renewDisplay();
       }
-      commonFunc.renewDisplay();
+      that.renewDisplay();
       return false;
     });
   },
@@ -79,18 +83,19 @@ var commonFunc = {
     $("button.input-button").off("click");
     $(".remove>button").off("click");
     $("#contacts tr").css({"background-color": "#FFF"});
-    commonFunc.showDisplay();
+    this.showDisplay();
   },
   showDisplay: function(){
-    commonFunc.displayData();
-    commonFunc.renewData();
-    commonFunc.removeData();
+    this.displayData();
+    this.renewData();
+    this.removeData();
   },
   makeSelectBox : function(){
-    _.each(_.keys(f), function(e){
-      if(f[e].type == "list"){
+    var that = this;
+    _.each(_.keys(that.f), function(e){
+      if(that.f[e].type == "list"){
         var idName = "input-" + e;
-        _.each(f[e].data, function(dataStr){
+        _.each(that.f[e].data, function(dataStr){
           $option = $('<option>')
             .val(dataStr)
             .text(dataStr)
@@ -118,12 +123,18 @@ var commonFunc = {
   }
 }
 
-$(function(){
-  commonFunc.makeSelectBox();
-  commonFunc.showDisplay();
-  commonFunc.dispSegments();
-  $("#makeCsv").click(function(){
-    alert("CSVが生成されてメールが飛びます（きっと）")
-  })
-  $(".segs").hide();
+$.ajax({
+  type: "GET",
+  url: "txt/data.yml",
+  success: function(d){
+    var fileObj = jsyaml.load(d);
+    m = new MediaMaster(fileObj);
+    m.makeSelectBox();
+    m.showDisplay();
+    m.dispSegments();
+    $("#makeCsv").click(function(){
+      alert("CSVが生成されてメールが飛びます（きっと）")
+    })
+    $(".segs").hide();
+  }
 });
