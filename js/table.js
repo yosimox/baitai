@@ -7,6 +7,11 @@ var MediaMaster = function(f){
       valueNames: this.dataDef
     }
     this.mediaList = new List('contacts', this.options);
+    this.member = {
+      agentName: "",
+      agentMail:"",
+      shiseidoMail:""
+    }
 }
 
 MediaMaster.prototype = {
@@ -145,14 +150,18 @@ MediaMaster.prototype = {
         var line = [null,"1","1","1",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null];
         line[8] = e._values["lp"];
         line[9] = e._values["category"];
-        line[10] = e._values["brand"];
-        line[11] = e._values["campaign"];
-        line[12] = e._values["menu"];
-        line[13] = e._values["seg1"];
-        line[14] = e._values["seg2"];
-        line[15] = e._values["seg3"];
-        line[16] = e._values["seg4"];
-        line[17] = e._values["seg5"];
+        line[10] = e._values["cv"];
+        line[11] = e._values["brand"];
+        line[12] = e._values["campaign"];
+        line[13] = e._values["menu"];
+        line[14] = e._values["seg1"];
+        line[15] = e._values["seg2"];
+        line[16] = e._values["seg3"];
+        line[17] = e._values["seg4"];
+        line[18] = e._values["seg5"];
+        line[19] = that.member.agentName;
+        line[20] = that.member.agentMail;
+        line[21] = that.member.shiseidoMail;
         lines.push(line);
       //}
     });
@@ -162,8 +171,20 @@ MediaMaster.prototype = {
     });
     //console.log(resStr);
     return resStr;
+  },
+  getMember: function(){
+    var that = this;
+    $("#member button").click(function(){
+      that.member.agentName = $("input#input-m1").val();
+      that.member.agentMail = $("input#input-m2").val();
+      that.member.shiseidoMail = $("input#input-m3").val();
+      $('[data-remodal-id=modal]').remodal().close();
+      console.log(that.member);
+    })
   }
 }
+
+
 
 $.ajax({
   type: "GET",
@@ -176,9 +197,8 @@ $.ajax({
     m.showDisplay();
     m.dispSegments();
     m.bindMakeCsv();
-    $("#makeCsv").click(function(){
-      alert("CSVが生成されてメールが飛びます（きっと）")
-    })
     $(".segs").hide();
+    m.getMember();
+    $('[data-remodal-id=modal]').remodal().open();
   }
 });

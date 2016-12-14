@@ -13,7 +13,12 @@
   src="https://code.jquery.com/jquery-2.2.4.min.js"
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   crossorigin="anonymous"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.3.0/list.min.js"></script>
+
+<link rel="stylesheet" href="css/remodal.css">
+<link rel="stylesheet" href="css/remodal-default-theme.css">
+<script src="js/remodal.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.3.0/list.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js" integrity="sha256-obZACiHd7gkOk9iIL/pimWMTJ4W/pBsKu+oZnSeBIek=" crossorigin="anonymous"></script>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -34,7 +39,6 @@ h2 {
   }
 table {font-size: small;}
 td {word-break: break-all;}
--->
 </style>
 </head>
 <body>
@@ -48,6 +52,7 @@ td {word-break: break-all;}
         <th>remove</th>
         <th>ランディングページURL</th>
         <th>大分類</th>
+        <th>成果種別</th>
         <th>ブランド</th>
     		<th>キャンペーン</th>
     		<th>広告メニュー</th>
@@ -63,7 +68,8 @@ td {word-break: break-all;}
         <td class="id" style="display:none;">0</td>
         <td class="remove"><button class="remove-item-btn btn btn-danger btn-xs">Remove</button></td>
         <td class="lp">http://www.shiseido.co.jp/</td>
-    		<td class="category">広告</td>
+        <td class="category">広告</td>
+        <td class="cv">EC</td>
     		<td class="brand">エリクシール</td>
     		<td class="campaign">campaign</td>
     		<td class="menu">アフィリエイト</td>
@@ -112,6 +118,13 @@ td {word-break: break-all;}
             <select class="form-control" id="input-category">
             </select>
           </div>
+        </div>
+        <div class="form-group">
+          <label for="input-cv" class="col-sm-4 control-label">成果種別</label>
+          <div class="col-sm-8">
+              <select class="form-control" id="input-cv">
+              </select>
+            </div>
         </div>
         <div class="form-group">
           <label for="input-brand" class="col-sm-4 control-label">ブランド</label>
@@ -184,10 +197,39 @@ td {word-break: break-all;}
 
   <script src="js/table.js"></script>
 
+  <a data-remodal-target="modal">担当企業/担当者名を再入力</a>
+  <div class="remodal-bg"></div>
+  <div class="remodal" data-remodal-id="modal">
+    <h4>担当者情報を入力</h4>
+    <br />
+      <form id="member" class="form-horizontal">
+        <div class="form-group">
+        <label for="input-m1" class="col-sm-4 control-label">登録企業名</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="input-m1" placeholder="登録企業名">
+          </div>
+        </div>
+        <div class="form-group">
+        <label for="input-m2" class="col-sm-4 control-label">ご担当者様メールアドレス</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="input-m2" placeholder="ご担当者様">
+          </div>
+        </div>
+        <div class="form-group">
+        <label for="input-m3" class="col-sm-4 control-label">資生堂担当者メールアドレス</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" id="input-m3" placeholder="資生堂担当者">
+          </div>
+        </div>
 
+        <div>
+          <button type="submit" class="btn btn-default" id="input-add2">登録</button>
+        </div>
+      </form
 
+    <br>
 
-
+  </div>
 
 
 </body>

@@ -11,6 +11,12 @@ category:
     - 広告
     - LINE
     - その他
+cv:
+  type: list
+  name: 成果種別
+  data:
+    - EC
+    - ブランディング
 brand:
   type: list
   name: ブランド
