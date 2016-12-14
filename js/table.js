@@ -174,12 +174,12 @@ MediaMaster.prototype = {
   },
   getMember: function(){
     var that = this;
-    $("#member button").click(function(){
+    $("#member").submit(function(){
       that.member.agentName = $("input#input-m1").val();
       that.member.agentMail = $("input#input-m2").val();
       that.member.shiseidoMail = $("input#input-m3").val();
       $('[data-remodal-id=modal]').remodal().close();
-      console.log(that.member);
+      //console.log(that.member);
     })
   }
 }
