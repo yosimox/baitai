@@ -180,6 +180,7 @@ MediaMaster.prototype = {
       that.member.shiseidoMail = $("input#input-m3").val();
       $('[data-remodal-id=modal]').remodal().close();
       //console.log(that.member);
+      return false;
     })
   }
 }
